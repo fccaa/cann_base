@@ -10,7 +10,7 @@ J\left(x,x^\prime\right) = \frac{1}{\sqrt{2\pi}a}\exp\left(-\frac{\left|x-x^\pri
 
 Except the dynamic variable and parameters are rescaled versions, the magnitude of external input is now decoupled from the magnitude of $u$ in stationary states.
 
-In the simulation, how the change of network states responding to change of external input is demonstrated. In which, the external input is initially at $z=0$ in the preferred stimuli space. At $t=0$, the external input was changed from 0 to z0. Snapshots taken per $10 \tau$ are presented to show the transient of the process.
+In the simulation, how the change of network states responding to change of external input is demonstrated. In which, the external input is initially at $z=0$ in the preferred stimuli space. At $t=0$, the external input was changed from 0 to $z_0$. Snapshots taken per $10 \tau$ are presented to show the transient of the process.
 
 Parameters:                                                    
 
