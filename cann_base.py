@@ -70,7 +70,8 @@ class cann_model:
         for i in range(self.Jxx.shape[0]):
             for j in range(self.Jxx.shape[1]):
                 self.Jxx[i][j] = \
-                np.exp(-0.5 * np.square(self.dist(self.x[i] - self.x[j]) / self.a)) \
+                np.exp(-0.5 * np.square(self.dist(self.x[i] \
+                                                  - self.x[j]) / self.a)) \
                 / (np.sqrt(2*np.pi) * self.a);
                 
         self.u = np.zeros((self.N));    # initialize neuronal inputs
@@ -86,9 +87,17 @@ class cann_model:
     def cal_r_or_u(self, u):
         u0 = 0.5 * (u + np.abs(u));
         r = np.square(u0);
-        B = 1.0 + 0.125 * self.k * np.sum(r) * self.dx / (np.sqrt(2*np.pi) * self.a);
+        B = 1.0 + 0.125 * self.k * np.sum(r) * self.dx \
+        / (np.sqrt(2*np.pi) * self.a);
         r = r / B;
         return r;
+    
+    # 
+    def cm_of_u(self):
+        max_i = self.u.argmax()
+        cm = np.dot(self.dist(cann.x - cann.x[max_i]), self.u) / self.u.sum()
+        cm = cm + cann.x[max_i]
+        return cm;
     
     # function for calculation of derivatives
     def get_dudt(self, t, u):
@@ -103,16 +112,23 @@ Begining of the program
 """
 # acquiring parameters
 parser = argparse.ArgumentParser(description="")
+
 parser.add_argument("-k", metavar="float", type=float, \
                     help="rescaled Inhibition", default=0.5)
+
 parser.add_argument("-a", metavar="float", type=float, \
                     help="width of excitatory couplings", default=0.5)
+
 parser.add_argument("-N", metavar="int", type=int, \
                     help="number of excitatory units", default=128)
+
 parser.add_argument("-A", metavar="float", type=float, \
                     help="magnitude of the external input", default=0.5)
+
 parser.add_argument("-z0", metavar="float", type=float, \
-                    help="sudden change of the external input", default=0.5*np.pi)
+                    help="sudden change of the external input", \
+                    default=0.5*np.pi)
+
 arg = parser.parse_args()
 
 # construct a CANN object
@@ -152,9 +168,9 @@ for t in range(0,20000,10):
     cann.u = out.y[:,-1]
     # store the snapshot
     snapshots = np.append(snapshots, [cann.u.transpose()], axis=0)
-    # if the peak of the neuronal input is close to the destination,
-    # simulation terminates.
-    if np.abs(cann.x[cann.u.argmax()] - arg.z0) < (1.5*cann.dx):
+    # if the center of mass of the neuronal input is close to 
+    # the destination, simulation terminates.
+    if np.abs(cann.cm_of_u() - arg.z0) < (0.05):
         break;
     
 # make a graphic output of the result
