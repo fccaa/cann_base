@@ -12,12 +12,11 @@ Except the dynamic variable and parameters are rescaled versions, the magnitude 
 
 In the simulation, how the change of network states responding to change of external input is demonstrated. In which, the external input is initially at $z=0$ in the preferred stimuli space. At $t=0$, the external input was changed from 0 to z0. Snapshots taken per $10 \tau$ are presented to show the transient of the process.
 
-Parameters: 
- Parameter  | Definition                                                  
-------------|------------------------------------------------------------
- -k  [float]| Degree of the rescaled inhibition                           
- -a  [float]| Half-width of the range of excitatory connections           
- -N  [int]  | Number of neurons / units                                   
- -A  [float]| Magnitude of the rescaled external input                   
- -z0 [float]| New position of the external input after the sudden change 
+Parameters:                                                    
+
+-k [float] : Degree of the rescaled inhibition                           
+-a [float] : Half-width of the range of excitatory connections           
+-N [int] : Number of neurons / units                                   
+-A [float] : Magnitude of the rescaled external input                   
+-z0 [float] : New position of the external input after the sudden change 
 
