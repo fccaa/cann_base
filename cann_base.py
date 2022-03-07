@@ -30,7 +30,7 @@ import scipy.integrate as spint
 import matplotlib.pyplot as plt
 import argparse
 
-# Class for the CANN model
+# Class for the model
 class cann_model:
     # define the range of perferred stimuli
     z_min = - np.pi;              
@@ -95,8 +95,8 @@ class cann_model:
     # 
     def cm_of_u(self):
         max_i = self.u.argmax()
-        cm = np.dot(self.dist(cann.x - cann.x[max_i]), self.u) / self.u.sum()
-        cm = cm + cann.x[max_i]
+        cm = np.dot(self.dist(self.x - self.x[max_i]), self.u) / self.u.sum()
+        cm = cm + self.x[max_i]
         return cm;
     
     # function for calculation of derivatives
